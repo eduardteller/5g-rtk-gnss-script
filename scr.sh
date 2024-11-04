@@ -32,12 +32,12 @@ while true; do
 	if [[ "$current_value" != "$prev_value" ]]; then
 
 		echo "Cell change detected"
-		/home/taltech/SUPL-3GPP-LPP-client/build/example-lpp osr -f rtcm -h 129.192.82.125 -p 5431 --imsi=248010203229380 -c "$mcc" -n "$mnc" -t 1 -i 2 --tcp=192.168.3.1 --tcp-port=3000 | tee -a out.txt &
+		/home/taltech/SUPL-3GPP-LPP-client/build/example-lpp osr -f rtcm -h 129.192.82.125 -p 5431 --imsi=248010203229380 -c "$mcc" -n "$mnc" -t 1 -i 2 --tcp=192.168.3.1 --tcp-port=3000 &
 		PID=$!
 
 	else
 
-		/home/taltech/SUPL-3GPP-LPP-client/build/example-lpp osr -f rtcm -h 129.192.82.125 -p 5431 --imsi=248010203229380 -c "$mcc" -n "$mnc" -t 1 -i 1 --tcp=192.168.3.1 --tcp-port=3000 | tee -a out.txt &
+		/home/taltech/SUPL-3GPP-LPP-client/build/example-lpp osr -f rtcm -h 129.192.82.125 -p 5431 --imsi=248010203229380 -c "$mcc" -n "$mnc" -t 1 -i 1 --tcp=192.168.3.1 --tcp-port=3000 &
 		PID=$!
 
 	fi
