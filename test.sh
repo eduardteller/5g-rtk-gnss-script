@@ -21,9 +21,3 @@ if [[ -n "$PID" && "$PID" != "null" ]]; then
   echo "Killing PID: $PID"
   kill $PID
 fi
-
-while [[ -n $(ps -p $PID -o pid=) ]]; do
-  echo "Waiting for PID: $PID to finish"
-  kill $PID
-  sleep 1
-done
