@@ -9,7 +9,7 @@ PID=null
 
 echo "Modem ID: $m_id"
 
-qmi_id=$(mmcli -m $m_id | grep -oP "primary port: \K\w+")
+qmi_id=$(mmcli -m $m_id | grep -oP "primary port: \K\[\w-]+")
 
 echo "Modem ID: $qmi_id"
 
