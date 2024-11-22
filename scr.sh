@@ -26,7 +26,7 @@ trap cleanup SIGINT
 
 while true; do
 
-	input=$(sudo qmicli -d /dev/$qmi_id --nas-get-serving-system)
+	input=$(qmicli -d /dev/$qmi_id --nas-get-serving-system)
 
 	# Extract MCC, MNC, cellID and TAC
 	mcc=$(echo "$input" | grep -oP "MCC: '\K\d+")
