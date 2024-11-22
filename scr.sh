@@ -7,7 +7,11 @@ out=$(mmcli -L)
 m_id=$(echo "$out" | grep -oP '/org/freedesktop/ModemManager1/Modem/\K\d+')
 PID=null
 
+echo "Modem ID: $m_id"
+
 qmi_id=$(mmcli -m $m_id | grep -oP "primary port: '\K[^']+")
+
+echo "Modem ID: $qmi_id"
 
 # Function to handle cleanup on exit
 cleanup() {
