@@ -9,10 +9,6 @@ PID=null
 
 echo "Modem ID: $m_id"
 
-qmi_id=$(mmcli -m $m_id | grep -oP "primary port: \K[\w-]+")
-
-echo "Modem ID: $qmi_id"
-
 # Function to handle cleanup on exit
 cleanup() {
 	if [[ -n "$PID" && "$PID" != "null" ]]; then
@@ -26,15 +22,18 @@ trap cleanup SIGINT
 
 while true; do
 
-	input=$(qmicli -d /dev/$qmi_id --nas-get-serving-system)
+	input=$(mmcli -m $m_id --location-get)
 
-	# Extract MCC, MNC, cellID and TAC
-	mcc=$(echo "$input" | grep -oP "MCC: '\K\d+")
-	mnc=$(echo "$input" | grep -oP "MNC: '\K\d+")
-	cellid=$(echo "$input" | grep -oP "3GPP cell ID: '\K\d+")
-	tac=$(echo "$input" | grep -oP "LTE tracking area code: '\K\d+")
+	# Extract MCC, MNC, LAC, TAC, and Cell ID
+	mcc=$(echo "$input" | grep -oP '(?<=operator mcc: )\d+')
+	mnc=$(echo "$input" | grep -oP '(?<=operator mnc: )\d+')
+	tac=$(echo "$input" | grep -oP '(?<=tracking area code: )\d+')
+	cell_id_hex=$(echo "$input" | grep -oP '(?<=cell id: )\w+')
 
-	echo MCC:"$mcc" MNC:"$mnc" CELL_ID:"$cellid" TAC:"$tac" - $(date +"%T") "|" PID: "$PID"
+	# Convert Cell ID from hexadecimal to decimal
+	cell_id_dec=$((16#$cell_id_hex))
+
+	echo MCC:"$mcc" MNC:"$mnc" CELL_ID:"$cell_id_dec" TAC:"$tac" - $(date +"%T") "|" PID: "$PID"
 
 	if [[ -n "$PID" && "$PID" != "null" ]]; then
 		kill $PID
@@ -51,7 +50,7 @@ while true; do
 		# PID=$!
 	fi
 
-	prev_value="$cellid"
+	prev_value="$cell_id_dec"
 
 	sleep $TIME
 
