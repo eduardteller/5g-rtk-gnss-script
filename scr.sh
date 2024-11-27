@@ -42,11 +42,11 @@ while true; do
 	if [[ "$current_value" != "$prev_value" ]]; then
 
 		echo -e "\e[31mCell change detected\e[0m"
-		/home/taltech/SUPL-3GPP-LPP-client/build/example-lpp osr -f rtcm -h 129.192.82.125 -p 5431 --imsi=248010203229380 -c "$mcc" -n "$mnc" -t "$tac" -i 2 --tcp=192.168.3.1 --tcp-port=3000 & #>output.txt 2>&1 &
+		/home/taltech/Desktop/5g-gnss/build/example-lpp osr -f rtcm -h 129.192.82.125 -p 5431 --imsi=248010203229380 -c "$mcc" -n "$mnc" -t "$tac" -i 2 --tcp=192.168.3.1 --tcp-port=3000 & #>output.txt 2>&1 &
 		PID=$!
 	else
 
-		/home/taltech/SUPL-3GPP-LPP-client/build/example-lpp osr -f rtcm -h 129.192.82.125 -p 5431 --imsi=248010203229380 -c "$mcc" -n "$mnc" -t "$tac" -i 1 --tcp=192.168.3.1 --tcp-port=3000 & #>output.txt 2>&1 &
+		/home/taltech/Desktop/5g-gnss/build/example-lpp osr -f rtcm -h 129.192.82.125 -p 5431 --imsi=248010203229380 -c "$mcc" -n "$mnc" -t "$tac" -i 1 --tcp=192.168.3.1 --tcp-port=3000 & #>output.txt 2>&1 &
 		PID=$!
 	fi
 
