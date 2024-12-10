@@ -10,6 +10,8 @@ PID=0
 out=$(mmcli -L)
 m_id=$(echo "$out" | grep -oP '/org/freedesktop/ModemManager1/Modem/\K\d+')
 
+echo "Modem ID: $m_id"
+
 # Cleanup funktsioon, mis käivitatakse skripti lõpetamisel, kustutab ericcsoni programmi protsessi, kui see on käimas.
 cleanup() {
 	if [[ "$PID" -ne 0 ]]; then
@@ -25,6 +27,8 @@ while true; do
 
 	# Leiame ModemManageri abil asukoha andmed
 	input=$(mmcli -m $m_id --location-get)
+
+	echo "$input"
 
 	# Loeme väljundist vajalikud andmed (MCC, MNC, TAC, Cell ID)
 	mcc=$(echo "$input" | grep -oP '(?<=operator mcc: )\d+')
