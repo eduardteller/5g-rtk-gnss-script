@@ -45,7 +45,7 @@ while true; do
 
 	# Kui ericssoni programmi protsess eelmisest loopi iteratsioonist on käimas, siis tapa see
 	if [[ "$PID" -ne 0 ]]; then
-		kill -9 $PID
+		kill $PID
 	fi
 
 	# Kui cell id on muutunud, siis käivita ericssoni programm uuesti -i 2 reziimis ja väljasta vastav teade
